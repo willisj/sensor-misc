@@ -133,13 +133,17 @@ static void* misc_loop( void *data){
 }
 */
 
+//#define FNCDBG_MISCRES_READLINE
 size_t misc_res::readline(void **line_t,size_t  recv_size){
     static char * line = NULL;//(char *)malloc(2048); //todo: freethis
         recv_size =0;
     //if(line != NULL){
         getline(&line, &recv_size, this->process_fp);
         *line_t = line;
-        printf("line: %s\n", (char *) *line);
+#ifdef FNCDBG_MISCRES_READLINE
+        if(line)
+            printf("line: %s\n", line);
+#endif
         return recv_size;
     /*
     }
